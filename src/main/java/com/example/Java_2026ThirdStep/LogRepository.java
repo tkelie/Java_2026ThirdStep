@@ -9,12 +9,13 @@ import java.util.List;
 public class LogRepository {
 
     private final List<Log> logs = new ArrayList<>(List.of(
-        new Log("alice", "LOGIN"),
-        new Log("alice", "LOGOUT"),
-        new Log("bob",   "LOGIN"),
-        new Log("charlie", "LOGIN"),
-        new Log("charlie", "LOGOUT")
-    ));
+            new Log("alice", "LOGIN"),
+            new Log("alice", "LOGOUT"),
+            new Log("bob", "LOGIN"),
+            new Log("charlie", "LOGIN"),
+            new Log("charlie", "LOGOUT"),
+            new Log("alice", "LOGIN"),
+            new Log("charlie", "LOGIN")));
 
     public List<Log> findAll() {
         return logs;

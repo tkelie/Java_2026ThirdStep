@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/logs")
@@ -29,5 +30,15 @@ public class LogController {
     public ResponseEntity<Log> addLog(@RequestBody Log log) {
         Log saved = logService.save(log);
         return ResponseEntity.status(201).body(saved);
+    }
+
+    @GetMapping("/summary")
+    public Map<String, Long> getSummary() {
+        return logService.summarize();
+    }
+
+    @GetMapping("/duplicate")
+    public List<String> getDuplicates() {
+        return logService.findDuplicates();
     }
 }

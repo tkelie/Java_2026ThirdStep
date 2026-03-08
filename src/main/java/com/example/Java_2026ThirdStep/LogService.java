@@ -3,6 +3,7 @@ package com.example.Java_2026ThirdStep;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class LogService {
@@ -26,5 +27,20 @@ public class LogService {
     public Log save(Log log) {
         logRepository.save(log);
         return log;
+    }
+
+    public Map<String, Long> summarize() {
+        return logRepository.findAll().stream()
+                .filter(log -> log.operation().equals("LOGIN"))
+                .collect(java.util.stream.Collectors.groupingBy(
+                        Log::userId,
+                        java.util.stream.Collectors.counting()));
+    }
+
+    public List<String> findDuplicates() {
+        return summarize().entrySet().stream()
+                .filter(entry -> entry.getValue() > 1)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 }
