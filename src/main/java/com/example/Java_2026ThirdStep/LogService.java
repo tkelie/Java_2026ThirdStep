@@ -19,9 +19,15 @@ public class LogService {
     }
 
     public List<Log> findByUserId(String userId) {
-        return logRepository.findAll().stream()
+        List<Log> result = logRepository.findAll().stream()
                 .filter(log -> log.userId().equals(userId))
                 .toList();
+
+        if (result.isEmpty()) {
+            throw new UserNotFoundException(userId);
+        }
+
+        return result;
     }
 
     public Log save(Log log) {
